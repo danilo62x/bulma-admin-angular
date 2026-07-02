@@ -1,0 +1,81 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "angular-bulma-admin": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss",
+          "standalone": true,
+          "changeDetection": "OnPush"
+        }
+      },
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist",
+            "index": "src/index.html",
+            "browser": "src/main.ts",
+            "polyfills": ["zone.js"],
+            "tsConfig": "tsconfig.app.json",
+            "assets": [
+              { "glob": "**/*", "input": "public" }
+            ],
+            "styles": [
+              "src/styles.scss",
+              "node_modules/quill/dist/quill.snow.css",
+              "node_modules/flatpickr/dist/flatpickr.css"
+            ],
+            "scripts": [],
+            "allowedCommonJsDependencies": ["quill-delta", "flatpickr/dist/l10n/pt"],
+            "serviceWorker": "ngsw-config.json",
+            "stylePreprocessorOptions": {
+              "includePaths": ["node_modules"],
+              "sass": {
+                "silenceDeprecations": ["if-function", "mixed-decls", "color-functions", "global-builtin", "import", "legacy-js-api"]
+              }
+            }
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                { "type": "initial", "maximumWarning": "2mb", "maximumError": "3mb" },
+                { "type": "anyComponentStyle", "maximumWarning": "8kb", "maximumError": "16kb" }
+              ],
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "optimization": true
+            },
+            "development": {
+              "optimization": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "port": 4200
+          },
+          "configurations": {
+            "production": { "buildTarget": "angular-bulma-admin:build:production" },
+            "development": { "buildTarget": "angular-bulma-admin:build:development" }
+          },
+          "defaultConfiguration": "development"
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": "b3501c31-dd59-444a-afbf-69d0a544cc2c"
+  }
+}

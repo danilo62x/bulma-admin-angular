@@ -1,0 +1,17 @@
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+
+@Component({
+  selector: 'app-footer-bar',
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
+    <footer
+      style="padding: 0.75rem 1.25rem; border-top: 1px solid var(--tx-border); text-align: center; font-size: 0.78rem; color: var(--tx-text-muted); background: var(--tx-card-bg); transition: background-color var(--tx-transition);"
+    >
+      &copy; {{ year }} Admin Template — Angular + Bulma
+    </footer>
+  `,
+})
+export class FooterBarComponent {
+  readonly year = new Date().getFullYear();
+}
